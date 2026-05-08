@@ -7,8 +7,8 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { Appointment } from '../../appointments/entities/appointment.entity';
-import { DoctorProfile } from '../../doctors/entities/doctor-profile.entity';
+import { Appointment } from './appointment.entity';
+import { DoctorProfile } from './doctor-profile.entity';
 
 export enum UserRole {
   PATIENT = 'patient',
@@ -19,6 +19,7 @@ export enum UserRole {
 @Entity('users') 
 export class User {
   @PrimaryGeneratedColumn('uuid') 
+  id: string;
 
   @Column({ unique: true }) 
   email: string;

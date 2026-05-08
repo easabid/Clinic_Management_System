@@ -7,8 +7,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { DoctorProfile } from '../../doctors/entities/doctor-profile.entity';
+import { User } from './user.entity';
+import { DoctorProfile } from './doctor-profile.entity';
 
 export enum AppointmentStatus {
   PENDING = 'pending',

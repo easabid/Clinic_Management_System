@@ -8,8 +8,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Appointment } from '../../appointments/entities/appointment.entity';
+import { User } from './user.entity';
+import { Appointment } from './appointment.entity';
 
 @Entity('doctor_profiles')
 export class DoctorProfile {
