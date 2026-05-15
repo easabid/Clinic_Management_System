@@ -185,7 +185,7 @@ export class AppointmentsService {
     appointment.status = AppointmentStatus.CANCELLED;
     const updated = await this.appointmentRepository.save(appointment);
 
-    this.mailService.sendAppointmentCancellation({
+    await this.mailService.sendAppointmentCancellation({
       patientEmail: appointment.patient.email,
       patientName: appointment.patient.fullName,
       doctorName: appointment.doctor.doctor.fullName,
