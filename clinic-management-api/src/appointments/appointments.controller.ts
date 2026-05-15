@@ -59,6 +59,14 @@ export class AppointmentsController {
     return this.appointmentsService.findMyAppointments(user.id);
   }
 
+  @Get('doctor/mine')
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.DOCTOR)
+  @ApiOperation({ summary: 'Get my appointments (Doctor only)' })
+  findDoctorAppointments(@CurrentUser() user: User) {
+    return this.appointmentsService.findDoctorAppointments(user.id);
+  }
+
   @Patch(':id/status')
   @UseGuards(RolesGuard)
   @Roles(UserRole.DOCTOR, UserRole.ADMIN)

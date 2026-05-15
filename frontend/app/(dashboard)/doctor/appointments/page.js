@@ -30,9 +30,8 @@ export default function DoctorAppointmentsPage() {
 
   const load = async () => {
     try {
-      const res = await appointmentsApi.getAll();
-      const mine = res.data.filter((a) => a.doctor?.doctor?.id === user?.id);
-      setAppointments(mine);
+      const res = await appointmentsApi.getDoctorMine();
+      setAppointments(res.data);
     } catch (err) {
       toast.error(parseError(err));
     } finally {

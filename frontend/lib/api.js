@@ -21,6 +21,7 @@ export const appointmentsApi = {
   book: (data) => api.post('/appointments', data),
   getAll: () => api.get('/appointments'),
   getMine: () => api.get('/appointments/mine'),
+  getDoctorMine: () => api.get('/appointments/doctor/mine'),
   updateStatus: (id, data) => api.patch(`/appointments/${id}/status`, data),
   cancel: (id) => api.delete(`/appointments/${id}`),
   getPatientHistory: (patientId) => api.get(`/patients/${patientId}/history`),

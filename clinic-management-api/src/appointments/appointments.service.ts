@@ -202,4 +202,20 @@ export class AppointmentsService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  async findDoctorAppointments(doctorUserId: string) {
+    const doctorProfile = await this.doctorProfileRepository.findOne({
+      where: { doctor: { id: doctorUserId } },
+    });
+
+    if (!doctorProfile) {
+      throw new NotFoundException('Doctor profile not found');
+    }
+
+    return this.appointmentRepository.find({
+      where: { doctor: { id: doctorProfile.id } },
+      relations: ['patient', 'doctor', 'doctor.doctor'],
+      order: { date: 'DESC' },
+    });
+  }
 }
