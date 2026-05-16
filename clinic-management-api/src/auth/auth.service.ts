@@ -4,12 +4,17 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import * as crypto from 'crypto';
 import { User } from '../users/entities/user.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { MailService } from '../mail/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +22,8 @@ export class AuthService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private jwtService: JwtService,
+    private mailService: MailService,
+    private configService: ConfigService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -68,6 +75,59 @@ export class AuthService {
       accessToken: token,
       user: userWithoutPassword,
     };
+  }
+
+  async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+    const user = await this.userRepository.findOne({ where: { email: forgotPasswordDto.email } });
+
+    if (!user) {
+      return {
+        message: 'If the email exists, a password reset link has been sent.',
+      };
+    }
+
+    const rawToken = crypto.randomBytes(32).toString('hex');
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+    const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
+
+    user.resetPasswordTokenHash = tokenHash;
+    user.resetPasswordTokenExpires = expiresAt;
+    await this.userRepository.save(user);
+
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL') || 'http://localhost:3001';
+    const resetUrl = `${frontendUrl}/reset-password?token=${rawToken}`;
+
+    await this.mailService.sendPasswordResetEmail({
+      patientEmail: user.email,
+      patientName: user.fullName,
+      resetUrl,
+    });
+
+    return {
+      message: 'If the email exists, a password reset link has been sent.',
+    };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const tokenHash = crypto.createHash('sha256').update(resetPasswordDto.token).digest('hex');
+
+    const user = await this.userRepository.findOne({
+      where: {
+        resetPasswordTokenHash: tokenHash,
+        resetPasswordTokenExpires: MoreThan(new Date()),
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Reset token is invalid or has expired');
+    }
+
+    user.password = await bcrypt.hash(resetPasswordDto.password, 12);
+    user.resetPasswordTokenHash = null;
+    user.resetPasswordTokenExpires = null;
+    await this.userRepository.save(user);
+
+    return { message: 'Password reset successfully' };
   }
 
   async getMe(userId: string) {

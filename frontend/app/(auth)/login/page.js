@@ -12,6 +12,7 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const validate = () => {
@@ -25,13 +26,16 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    setSubmitError('');
     setIsLoading(true);
     try {
       const res = await authApi.login(form);
       login(res.data.accessToken, res.data.user);
       toast.success(`Welcome back, ${res.data.user.fullName}!`);
     } catch (err) {
-      toast.error(parseError(err));
+      const message = parseError(err);
+      setSubmitError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -50,6 +54,11 @@ export default function LoginPage() {
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
         <form onSubmit={handleSubmit} className="space-y-5">
+          {submitError && (
+            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {submitError}
+            </div>
+          )}
           <Input
             label="Email address"
             type="email"
@@ -68,6 +77,11 @@ export default function LoginPage() {
             error={errors.password}
             autoComplete="current-password"
           />
+          <div className="flex justify-end -mt-2">
+            <Link href="/forgot-password" className="text-xs font-medium text-blue-600 hover:underline">
+              Forgot password?
+            </Link>
+          </div>
           <Button type="submit" isLoading={isLoading} size="lg" className="w-full mt-2">
             {isLoading ? 'Signing in...' : 'Sign in'}
           </Button>

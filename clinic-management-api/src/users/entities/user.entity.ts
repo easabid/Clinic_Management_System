@@ -43,6 +43,12 @@ export class User {
   @Column({ type: 'date', nullable: true })
   dateOfBirth: Date;
 
+  @Column({ type: 'varchar', nullable: true })
+  resetPasswordTokenHash: string | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  resetPasswordTokenExpires: Date | null;
+
   @OneToMany(() => Appointment, (appointment) => appointment.patient)
   appointments: Appointment[];
 

@@ -52,4 +52,22 @@ export class MailService {
       this.logger.error(`Failed to send cancellation email: ${error.message}`);
     }
   }
+
+  async sendPasswordResetEmail(data: {
+    patientEmail: string;
+    patientName: string;
+    resetUrl: string;
+  }) {
+    try {
+      await this.mailerService.sendMail({
+        to: data.patientEmail,
+        subject: 'Reset your ClinicMS password',
+        template: 'password-reset',
+        context: data,
+      });
+      this.logger.log(`Password reset email sent to ${data.patientEmail}`);
+    } catch (error) {
+      this.logger.error(`Failed to send password reset email: ${error.message}`);
+    }
+  }
 }
