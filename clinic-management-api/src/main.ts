@@ -20,7 +20,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], 
+    origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'http://localhost:3001'],
     credentials: true,
   });
 
@@ -34,7 +34,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.PORT || 4000;
+  const port = process.env.PORT || 3001;
   await app.listen(port);
   console.log(`Clinic API running on: http://localhost:${port}/api`);
   console.log(`Swagger docs at:       http://localhost:${port}/api/docs`);
