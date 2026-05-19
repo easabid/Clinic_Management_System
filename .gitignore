@@ -14,3 +14,10 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor
+.vscode/
+
+# Local database
+*.sqlite
+*.sqlite3
