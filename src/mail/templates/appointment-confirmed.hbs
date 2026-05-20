@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .header { background: #2563eb; color: #fff; padding: 24px; text-align: center; }
+    .body { padding: 32px; color: #333; }
+    .info-box { background: #eff6ff; border-left: 4px solid #2563eb; padding: 16px; border-radius: 4px; margin: 20px 0; }
+    .info-row { margin: 8px 0; }
+    .label { font-weight: bold; color: #555; }
+    .footer { background: #f9fafb; padding: 16px; text-align: center; font-size: 12px; color: #888; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Appointment Confirmed</h1>
+    </div>
+    <div class="body">
+      <p>Dear <strong>{{patientName}}</strong>,</p>
+      <p>Your appointment has been successfully booked. Here are your details:</p>
+      <div class="info-box">
+        <div class="info-row"><span class="label">Doctor:</span> Dr. {{doctorName}}</div>
+        <div class="info-row"><span class="label">Specialization:</span> {{specialization}}</div>
+        <div class="info-row"><span class="label">Date:</span> {{date}}</div>
+        <div class="info-row"><span class="label">Time:</span> {{timeSlot}}</div>
+        <div class="info-row"><span class="label">Consultation Fee:</span> ৳{{consultationFee}}</div>
+      </div>
+      <p>To cancel your appointment, please contact us or use the patient portal.</p>
+      <p>Thank you for choosing our clinic!</p>
+    </div>
+    <div class="footer">© 2025 Clinic Management System | This is an automated email</div>
+  </div>
+</body>
+</html>
