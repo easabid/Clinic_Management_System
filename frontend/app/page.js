@@ -122,7 +122,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="py-8 px-8 border-t border-gray-100 text-center">
         <p className="text-gray-400 text-sm">
-          © 2025 Clinic Management System. All rights reserved.
+          © 2026 Clinic Management System. All rights reserved.
         </p>
       </footer>
     </div>

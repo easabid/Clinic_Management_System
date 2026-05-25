@@ -41,7 +41,7 @@ export class Appointment {
   timeSlot: string; // e.g. "10:00 AM", "02:30 PM"
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: AppointmentStatus,
     default: AppointmentStatus.PENDING,
   })

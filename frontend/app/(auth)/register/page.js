@@ -89,7 +89,7 @@ export default function RegisterPage() {
 
           <Input
             label="Full name"
-            placeholder="John Doe"
+            placeholder="Your Name......"
             value={form.fullName}
             onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
             error={errors.fullName}
@@ -97,7 +97,7 @@ export default function RegisterPage() {
           <Input
             label="Email address"
             type="email"
-            placeholder="you@example.com"
+            placeholder="sabid@gmail.com"
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
             error={errors.email}
@@ -105,7 +105,7 @@ export default function RegisterPage() {
           <Input
             label="Password"
             type="password"
-            placeholder="Min. 6 characters"
+            placeholder="Min. 6 character"
             value={form.password}
             onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
             error={errors.password}
@@ -113,7 +113,7 @@ export default function RegisterPage() {
           <Input
             label="Phone (optional)"
             type="tel"
-            placeholder="+8801700000000"
+            placeholder="01X-XXXXXXX"
             value={form.phone}
             onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
           />

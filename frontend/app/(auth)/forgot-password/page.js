@@ -17,7 +17,9 @@ export default function ForgotPasswordPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
+    const normalizedEmail = email.trim();
+
+    if (!normalizedEmail) {
       setError('Email is required');
       return;
     }
@@ -27,7 +29,7 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
-      const res = await authApi.forgotPassword({ email });
+      const res = await authApi.forgotPassword({ email: normalizedEmail });
       setMessage(res.data.message);
       toast.success('Reset link sent if the email exists.');
     } catch (err) {

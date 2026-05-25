@@ -28,7 +28,7 @@ export class User {
   password: string; 
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: UserRole,
     default: UserRole.PATIENT,
   })
@@ -46,7 +46,7 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   resetPasswordTokenHash: string | null;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   resetPasswordTokenExpires: Date | null;
 
   @OneToMany(() => Appointment, (appointment) => appointment.patient)

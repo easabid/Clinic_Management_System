@@ -39,7 +39,7 @@ export class Appointment {
   timeSlot: string; 
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: AppointmentStatus,
     default: AppointmentStatus.PENDING,
   })

@@ -7,6 +7,7 @@ export const authApi = {
   getMe: () => api.get('/auth/me'),
   forgotPassword: (data) => api.post('/auth/forgot-password', data),
   resetPassword: (data) => api.post('/auth/reset-password', data),
+  changePassword: (data) => api.post('/auth/change-password', data),
 };
 
 //doctors 

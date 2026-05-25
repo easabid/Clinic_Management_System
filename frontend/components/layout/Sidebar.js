@@ -8,16 +8,19 @@ const navLinks = {
     { href: '/patient/dashboard', label: 'Dashboard', icon: '🏠' },
     { href: '/patient/doctors', label: 'Find Doctors', icon: '👨‍⚕️' },
     { href: '/patient/appointments', label: 'My Appointments', icon: '📅' },
+    { href: '/change-password', label: 'Change Password', icon: '🔑' },
   ],
   doctor: [
     { href: '/doctor/dashboard', label: 'Dashboard', icon: '🏠' },
     { href: '/doctor/appointments', label: 'Appointments', icon: '📅' },
+    { href: '/change-password', label: 'Change Password', icon: '🔑' },
   ],
   admin: [
     { href: '/admin/dashboard', label: 'Dashboard', icon: '🏠' },
     { href: '/admin/users', label: 'Users', icon: '👥' },
     { href: '/admin/doctors', label: 'Doctors', icon: '👨‍⚕️' },
     { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
+    { href: '/change-password', label: 'Change Password', icon: '🔑' },
   ],
 };
 
